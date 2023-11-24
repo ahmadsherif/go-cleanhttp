@@ -4,6 +4,7 @@
 package cleanhttp
 
 import (
+	"crypto/tls"
 	"net"
 	"net/http"
 	"runtime"
@@ -37,6 +38,7 @@ func DefaultPooledTransport() *http.Transport {
 		ExpectContinueTimeout: 1 * time.Second,
 		ForceAttemptHTTP2:     true,
 		MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
+		TLSClientConfig:       &tls.Config{InsecureSkipVerify: true},
 	}
 	return transport
 }
